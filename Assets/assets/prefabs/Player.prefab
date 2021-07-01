@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8874eade0a598324bbca53c840a3dfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 120
+  moveSpeed: 15
+  rotationSpeed: 500
   playerCamera: {fileID: 8689102226125855361}
 --- !u!54 &8689102227557210782
 Rigidbody:

@@ -34,6 +34,11 @@ public class SamplePlayer : MonoBehaviour
 
     private string nextState;
 
+    //raycasting values
+    public static float DistanceFromTarget;
+    public float ToTarget;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +48,13 @@ public class SamplePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //raycast 
+        RaycastHit Hit;
+        if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out Hit))
+        {
+            ToTarget = Hit.distance;
+            DistanceFromTarget = ToTarget;
+        }
         if (nextState != currentState)
         {
             SwitchState();
