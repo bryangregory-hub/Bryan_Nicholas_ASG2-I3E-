@@ -20,6 +20,11 @@ public class Quest01 : MonoBehaviour
             ActionDisplay.SetActive(true);
             ActionText.SetActive(true);
         }
+        else
+        {
+            ActionDisplay.SetActive(false);
+            ActionText.SetActive(false);
+        }
         if (Input.GetButtonDown("Action"))
         {
             if (TheDistance <= 3)

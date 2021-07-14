@@ -43,18 +43,19 @@ public class SamplePlayer : MonoBehaviour
     void Start()
     {
         nextState = "Idle";
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //raycast 
         RaycastHit Hit;
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
         Debug.DrawRay(transform.position, forward, Color.green);
         if (Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out Hit))
         {
-            
             ToTarget = Hit.distance;
             DistanceFromTarget = ToTarget;
         }
