@@ -35,9 +35,12 @@ public class SamplePlayer : MonoBehaviour
     private string nextState;
 
     //raycasting values
+    [SerializeField]
+    private float interactionDistance;  
     public static float DistanceFromTarget;
     public float ToTarget;
-    
+
+    public bool FirstQuest;
 
     // Start is called before the first frame update
     void Start()
@@ -49,16 +52,9 @@ public class SamplePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //raycast 
-        RaycastHit Hit;
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-        Debug.DrawRay(transform.position, forward, Color.green);
-        if (Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out Hit))
-        {
-            ToTarget = Hit.distance;
-            DistanceFromTarget = ToTarget;
-        }
+        FirstQuest = Quest01.i;
+        raycast();
+        raycastNpc();
         if (nextState != currentState)
         {
             SwitchState();
@@ -142,4 +138,40 @@ public class SamplePlayer : MonoBehaviour
         }
 
     }
+    void raycastNpc()
+    {
+        RaycastHit Hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out Hit))
+        {
+            ToTarget = Hit.distance;
+            DistanceFromTarget = ToTarget;
+        }
+            
+    }
+    void raycast()
+    {
+        Debug.DrawLine(playerCamera.transform.position,
+                    playerCamera.transform.position + playerCamera.transform.forward * interactionDistance);
+        
+        int layermask = 1<< LayerMask.NameToLayer("Interactable");
+
+        RaycastHit Hit;
+
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out Hit, interactionDistance
+            , layermask))
+        {
+            
+            if (Input.GetButtonDown("Action"))
+            {
+                if (FirstQuest==true)
+                {
+                    Hit.transform.GetComponent<InteractableObject>().Interact();
+                    print("quest one done ");
+                }
+                
+            }
+            
+        }
+    }
+    
 }

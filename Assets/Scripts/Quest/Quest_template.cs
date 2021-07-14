@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Quest01 : MonoBehaviour
+public class Quest_template : MonoBehaviour
 {
     public float TheDistance;
     public GameObject ActionDisplay;
     public GameObject ActionText;
     public GameObject QuestText;
+
     
-    public static bool i = false;
-    
+
 
     void Update()
     {
         TheDistance = SamplePlayer.DistanceFromTarget;
-        Quest();
+        
     }
-     void OnMouseOver()
+    void OnMouseOver()
     {
         if (TheDistance <= 3)
         {
@@ -37,22 +36,14 @@ public class Quest01 : MonoBehaviour
                 ActionDisplay.SetActive(false);
                 ActionText.SetActive(false);
                 QuestText.SetActive(true);
-                i = true;
+                
                 print("got it");
             }
         }
     }
-     void OnMouseExit()
+    void OnMouseExit()
     {
         ActionDisplay.SetActive(false);
         ActionText.SetActive(false);
     }
-    public void Quest()
-    {
-        if (i == true)
-        {
-            
-        }
-    }
-
 }
