@@ -41,7 +41,10 @@ public class SamplePlayer : MonoBehaviour
     public float ToTarget;
 
     public bool FirstQuest;
+    public bool SecondQuest;
+    bool questDone=false;
 
+    private int Count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +56,7 @@ public class SamplePlayer : MonoBehaviour
     void Update()
     {
         FirstQuest = Quest01.i;
+        SecondQuest = Quest02.t;
         raycast();
         raycastNpc();
         if (nextState != currentState)
@@ -150,15 +154,13 @@ public class SamplePlayer : MonoBehaviour
     }
     void raycast()
     {
-        Debug.DrawLine(playerCamera.transform.position,
-                    playerCamera.transform.position + playerCamera.transform.forward * interactionDistance);
+        Debug.DrawLine(playerCamera.transform.position, playerCamera.transform.position + playerCamera.transform.forward * interactionDistance);
         
         int layermask = 1<< LayerMask.NameToLayer("Interactable");
 
         RaycastHit Hit;
 
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out Hit, interactionDistance
-            , layermask))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out Hit, interactionDistance,layermask))
         {
             
             if (Input.GetButtonDown("Action"))
@@ -167,6 +169,18 @@ public class SamplePlayer : MonoBehaviour
                 {
                     Hit.transform.GetComponent<InteractableObject>().Interact();
                     print("quest one done ");
+
+                    questDone = true;
+                }
+                if (SecondQuest == true)
+                {
+                    Count++;
+                    print("time");
+                        if (Count == 5)
+                        {
+                            Hit.transform.GetComponent<InteractableObject>().Interact();
+                        }
+                    }
                 }
                 
             }
@@ -174,4 +188,3 @@ public class SamplePlayer : MonoBehaviour
         }
     }
     
-}
