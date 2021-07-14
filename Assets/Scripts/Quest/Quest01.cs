@@ -17,7 +17,11 @@ public class Quest01 : MonoBehaviour
     {
         TheDistance = SamplePlayer.DistanceFromTarget;
         
+<<<<<<< HEAD
         
+=======
+        Quest();
+>>>>>>> 1092396fcf02ef0d365d3dfd179c3bcf1d401ade
     }
      void OnMouseOver()
     {
@@ -26,12 +30,16 @@ public class Quest01 : MonoBehaviour
             ActionDisplay.SetActive(true);
             ActionText.SetActive(true);
         }
+<<<<<<< HEAD
         if (TheDistance>=3)
         {
             ActionDisplay.SetActive(false);
             ActionText.SetActive(false);
             QuestDetail.SetActive(false);
         }
+=======
+        
+>>>>>>> 1092396fcf02ef0d365d3dfd179c3bcf1d401ade
         if (Input.GetButtonDown("Action"))
         {
             if (TheDistance <= 3)
