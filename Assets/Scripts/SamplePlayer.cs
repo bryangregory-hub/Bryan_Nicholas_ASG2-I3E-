@@ -12,7 +12,7 @@ Date Created: 09 / 06 / 2021
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SamplePlayer : MonoBehaviour
 {
     /// <summary>
@@ -42,7 +42,15 @@ public class SamplePlayer : MonoBehaviour
 
     public bool FirstQuest;
     public bool SecondQuest;
+    public bool ThirdQuest;
+    public bool ForthQuest;
     bool questDone=false;
+
+    public GameObject medic;
+    public GameObject energy;
+    public GameObject gems;
+    public float toolCount;
+    public Text toolNum;
 
     private int Count = 0;
     // Start is called before the first frame update
@@ -55,8 +63,12 @@ public class SamplePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FirstQuest = Quest01.i;
-        SecondQuest = Quest02.t;
+        FirstQuest = Quest.i;
+        SecondQuest = Quest.t;
+        ThirdQuest = Quest.y;
+        ForthQuest = Quest.u;
+        toolNum.text = "Tools to find " + toolCount;
+
         raycast();
         raycastNpc();
         if (nextState != currentState)
@@ -163,28 +175,80 @@ public class SamplePlayer : MonoBehaviour
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out Hit, interactionDistance,layermask))
         {
             
-            if (Input.GetButtonDown("Action"))
+            
+           if (FirstQuest==true)
             {
-                if (FirstQuest==true)
+                if (Input.GetButtonDown("Action"))
                 {
-                    Hit.transform.GetComponent<InteractableObject>().Interact();
-                    print("quest one done ");
+                    if (Hit.transform.gameObject == medic)
+                    {
+                        print("quest one done");
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                    }
+
 
                     questDone = true;
                 }
+            }
                 if (SecondQuest == true)
                 {
-                    Count++;
-                    print("time");
+                if (Input.GetButtonDown("Action"))
+                {
+                    if (Hit.transform.gameObject == energy)
+                    {
+                        Count++;
+                        print("time");
                         if (Count == 5)
                         {
-                            Hit.transform.GetComponent<InteractableObject>().Interact();
+                            print("quest two done");
                         }
                     }
                 }
+                    
+                }
+                if (ThirdQuest == true)
+                {
+                if (Input.GetButtonDown("Action"))
+                {
+                    if (Hit.transform.tag == "tools")
+                    {
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                        toolCount--;
+                    }
+                }
+                }
+
+                if (ForthQuest== true)
+                {
+                if (Hit.transform.gameObject == gems)
+                    {
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        //corutine to make the the raycast hit obj
+                        print("hihi");
+                        StartCoroutine(suckTime());
+                        
+                    }
                 
+
+                    
+                    
+                }
+                
+
             }
             
+            
+                
         }
+            
     }
+    IEnumerator suckTime()
+    {
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        yield return new WaitForSeconds(3);
+        Debug.Log("ended Coroutine at timestamp : " + Time.time);
+    }
+}
     
