@@ -12,7 +12,7 @@ Date Created: 09 / 06 / 2021
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SamplePlayer : MonoBehaviour
 {
     /// <summary>
@@ -42,7 +42,14 @@ public class SamplePlayer : MonoBehaviour
 
     public bool FirstQuest;
     public bool SecondQuest;
+    public bool ThirdQuest;
+
     bool questDone=false;
+
+    public GameObject medic;
+    public GameObject energy;
+    public float toolCount;
+    public Text toolNum;
 
     private int Count = 0;
     // Start is called before the first frame update
@@ -55,8 +62,12 @@ public class SamplePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FirstQuest = Quest01.i;
-        SecondQuest = Quest02.t;
+        FirstQuest = Quest.i;
+        SecondQuest = Quest.t;
+        ThirdQuest = Quest.y;
+
+        toolNum.text = "Tools to find" + toolCount;
+
         raycast();
         raycastNpc();
         if (nextState != currentState)
@@ -167,24 +178,40 @@ public class SamplePlayer : MonoBehaviour
             {
                 if (FirstQuest==true)
                 {
-                    Hit.transform.GetComponent<InteractableObject>().Interact();
-                    print("quest one done ");
+                    if (Hit.transform.gameObject==medic)
+                    {
+                        print("quest one done");
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                    }
+                    
 
                     questDone = true;
                 }
                 if (SecondQuest == true)
                 {
-                    Count++;
-                    print("time");
+                    if (Hit.transform.gameObject == energy)
+                    {
+                        Count++;
+                        print("time");
                         if (Count == 5)
                         {
-                            Hit.transform.GetComponent<InteractableObject>().Interact();
+                            print("quest two done");
                         }
                     }
+                    
                 }
-                
+                if (ThirdQuest == true)
+                {
+                    if (Hit.transform.tag=="tools")
+                    {
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                        toolCount--;
+                    }
+                }
             }
-            
+                
         }
+            
     }
+}
     

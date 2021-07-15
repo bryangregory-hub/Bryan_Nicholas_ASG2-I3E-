@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Quest01 : MonoBehaviour
+public class Quest : MonoBehaviour
 {
     public float TheDistance;
     public GameObject ActionDisplay;
     public GameObject ActionText;
     public GameObject QuestText;
     public GameObject QuestDetail;
-    public static bool i = false;
     
+    public static bool i = false;
+    public static bool t = false;
+    public static bool y = false;
+
 
     void Update()
     {
@@ -41,9 +44,24 @@ public class Quest01 : MonoBehaviour
                 ActionText.SetActive(false);
                 QuestText.SetActive(true);
                 QuestDetail.SetActive(true);
-                i = true;
-                print("got it");
-                
+                if (gameObject.tag=="NPC 1")
+                {
+                    i = true;
+                    Debug.Log(name + " has been interacted with.");
+                }
+                if (gameObject.tag == "NPC 2")
+                {
+                    t = true;
+                    Debug.Log(name + " has been interacted with.");
+                }
+
+                if (gameObject.tag == "NPC 3")
+                {
+                    y = true;
+                    Debug.Log(name + " has been interacted with.");
+                }
+
+
             }
                 
         }
