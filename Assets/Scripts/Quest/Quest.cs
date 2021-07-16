@@ -14,57 +14,65 @@ public class Quest : MonoBehaviour
     public static bool i = false;
     public static bool t = false;
     public static bool y = false;
+    public static bool u = false;
 
-
+  
     void Update()
     {
         TheDistance = SamplePlayer.DistanceFromTarget;
         
-        
+
+
     }
      void OnMouseOver()
     {
-        if (TheDistance <= 3)
-        {
-            ActionDisplay.SetActive(true);
-            ActionText.SetActive(true);
-        }
         if (TheDistance>=3)
         {
             ActionDisplay.SetActive(false);
             ActionText.SetActive(false);
             QuestDetail.SetActive(false);
         }
-        if (Input.GetButtonDown("Action"))
+        if (gameObject.tag!="Untagged"|| gameObject.tag=="Int NPC")
         {
             if (TheDistance <= 3)
             {
-                
-                ActionDisplay.SetActive(false);
-                ActionText.SetActive(false);
-                QuestText.SetActive(true);
-                QuestDetail.SetActive(true);
-                if (gameObject.tag=="NPC 1")
-                {
-                    i = true;
-                    Debug.Log(name + " has been interacted with.");
-                }
-                if (gameObject.tag == "NPC 2")
-                {
-                    t = true;
-                    Debug.Log(name + " has been interacted with.");
-                }
-
-                if (gameObject.tag == "NPC 3")
-                {
-                    y = true;
-                    Debug.Log(name + " has been interacted with.");
-                }
-
-
+                ActionDisplay.SetActive(true);
+                ActionText.SetActive(true);
             }
-                
+            if (Input.GetButtonDown("Action"))
+            {
+                if (TheDistance <= 3)
+                {
+
+                    ActionDisplay.SetActive(false);
+                    ActionText.SetActive(false);
+                    QuestText.SetActive(true);
+                    QuestDetail.SetActive(true);
+                    if (gameObject.tag == "NPC 1")
+                    {
+                        i = true;
+                        //Debug.Log(name + " has been interacted with.");
+                    }
+                    if (gameObject.tag == "NPC 2")
+                    {
+                        t = true;
+                        //Debug.Log(name + " has been interacted with.");
+                    }
+
+                    if (gameObject.tag == "NPC 3")
+                    {
+                        y = true;
+                        //Debug.Log(name + " has been interacted with.");
+                    }
+                    if (gameObject.tag == "NPC 4")
+                    {
+                        u = true;
+                        //Debug.Log(name + " has been interacted with.");
+                    }
+                }
+            }
         }
+        
     }
      void OnMouseExit()
     {
