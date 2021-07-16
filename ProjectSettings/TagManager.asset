@@ -9,6 +9,7 @@ TagManager:
   - NPC 3
   - NPC 4
   - tools
+  - Int NPC
   layers:
   - Default
   - TransparentFX
