@@ -27,7 +27,8 @@ Windows, Mac, and Linux
 BUGS/LIMITATIONS
 The text and UI starts blinking cause of a corutine.
 No transition screen was added due to time constraints.
-No settings screen while playing the game 
+No settings screen while playing the game.
+if had more time more animations and interations would be added whiles improving sound and user feels.
 
 
 
@@ -38,3 +39,4 @@ Base Assets - https://assetstore.unity.com/packages/3d/environments/sci-fi/sfutu
 Ship - https://www.cgtrader.com/free-3d-models/vehicle/sci-fi/futuristic-transport-shuttle
 Menu Music is the main theme from Space Engineers - https://www.youtube.com/watch?v=V7zn04zw1kw
 NPCS models are from Mixamo
+UI sprites were made using photoshop
