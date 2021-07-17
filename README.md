@@ -2,6 +2,7 @@
 INSTRUCTIONS
 Players can use "W", "A", "S", and "D" keys to move the player character
 Press "E" to interact with Non-playable characters and items.
+press "Tab" tp open up quest logs to complete and completed.
 
 STORY
 You are a ship captain's engineer and both of you are going on a trip to Mars for resource collection. However, on your way the ship suffered a fatal malfunction and crashed into the moon. You were knocked unconscious and were saved by your captain as thankfully there is an abandoned moon base. The captain is suffering mortal wounds and is physcially incapacitated.
