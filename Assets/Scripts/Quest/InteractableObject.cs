@@ -18,7 +18,7 @@ public class InteractableObject : MonoBehaviour
 
     public void Interact()
     {
-        Debug.Log(name + " has been interacted with.");
+        //Debug.Log(name + " has been interacted with.");
         gameObject.SetActive(false);
     }
 }

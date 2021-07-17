@@ -12,7 +12,7 @@ Date Created: 09 / 06 / 2021
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SamplePlayer : MonoBehaviour
 {
     /// <summary>
@@ -36,27 +36,78 @@ public class SamplePlayer : MonoBehaviour
 
     //raycasting values
     [SerializeField]
-    private float interactionDistance;  
+    private float interactionDistance;
     public static float DistanceFromTarget;
     public float ToTarget;
 
     public bool FirstQuest;
     public bool SecondQuest;
-    bool questDone=false;
+    public bool ThirdQuest;
+    public bool ForthQuest;
+    
+    public static int questDone = 0;
+
+    public GameObject medic;
+    public GameObject energy;
+    public GameObject gems;
+    public float toolCount;
+    public Text toolNum;
 
     private int Count = 0;
+    private IEnumerator suckTime;
+
+    public GameObject NPC_1;
+    public GameObject NPC_2;
+    public GameObject NPC_3;
+    public GameObject NPC_4;
+
+
+    public GameObject questDone1;
+    public GameObject questDone2;
+    public GameObject questDone3;
+    public GameObject questDone4;
+
+    public Animator pickaxe;
+    public GameObject pixace;
+    public GameObject exrtractor;
+    public Animator QuestD;
+    public Animator GamWin;
+    public Slider Qn2S;
+    public GameObject Qns2;
+
+    public static bool Q1;
+    public static bool Q2;
+    public static bool Q3;
+    public static bool Q4;
     // Start is called before the first frame update
     void Start()
     {
+        questDone = 0;
         nextState = "Idle";
         Cursor.lockState = CursorLockMode.Locked;
+        Q1 = false;
+        Q2 = false;
+        Q3 = false;
+        Q4 = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        FirstQuest = Quest01.i;
-        SecondQuest = Quest02.t;
+
+        Qn2S.value = Count;
+        
+        suckTime = Sucking();
+        FirstQuest = Quest.i;
+        SecondQuest = Quest.t;
+        ThirdQuest = Quest.y;
+        ForthQuest = Quest.u;
+        toolNum.text = "Tools to find " + toolCount;
+        if (Input.GetButton("Win")|| questDone==4)
+        {
+            print("all quest completed");
+            GamWin.SetBool("Win", true);
+        }
         raycast();
         raycastNpc();
         if (nextState != currentState)
@@ -65,7 +116,9 @@ public class SamplePlayer : MonoBehaviour
         }
 
         CheckRotation();
+
     }
+
 
     /// <summary>
     /// Sets the current state of the player
@@ -150,41 +203,134 @@ public class SamplePlayer : MonoBehaviour
             ToTarget = Hit.distance;
             DistanceFromTarget = ToTarget;
         }
-            
+
     }
     void raycast()
     {
         Debug.DrawLine(playerCamera.transform.position, playerCamera.transform.position + playerCamera.transform.forward * interactionDistance);
-        
-        int layermask = 1<< LayerMask.NameToLayer("Interactable");
+
+        int layermask = 1 << LayerMask.NameToLayer("Interactable");
 
         RaycastHit Hit;
 
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out Hit, interactionDistance,layermask))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out Hit, interactionDistance, layermask))
         {
-            
-            if (Input.GetButtonDown("Action"))
-            {
-                if (FirstQuest==true)
-                {
-                    Hit.transform.GetComponent<InteractableObject>().Interact();
-                    print("quest one done ");
 
-                    questDone = true;
-                }
-                if (SecondQuest == true)
+
+
+            if (FirstQuest == true)
+            {
+                if (Input.GetButtonDown("Action") && Q1 != true)
                 {
-                    Count++;
-                    print("time");
+                    if (Hit.transform.gameObject == medic)
+                    {
+                        //print("quest one done");
+                        QuestD.SetBool("QD", true);
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                        NPC_1.gameObject.tag = "Untagged";
+                        questDone1.gameObject.SetActive(false);
+                        Q1 = true;
+                        questDone++;
+                        StartCoroutine(qDone());
+
+                    }
+                }
+            }
+            if (SecondQuest == true)
+            {
+                if (Input.GetButtonDown("Action") && Q2 != true)
+                {
+                    if (Hit.transform.gameObject == energy)
+                    {
+                        Qns2.gameObject.SetActive(true);
+                        Count++;
+                        exrtractor.SetActive(true);
+
+                       
                         if (Count == 5)
                         {
-                            Hit.transform.GetComponent<InteractableObject>().Interact();
+                            QuestD.SetBool("QD", true);
+                            exrtractor.SetActive(false);
+                            //print("quest two done");
+                            NPC_2.gameObject.tag = "Untagged";
+                            questDone2.gameObject.SetActive(false);
+                            Q2 = true;
+                            StartCoroutine(qDone());
+                            questDone++;
+                            Qns2.gameObject.SetActive(false);
+                        }
+                        
+                            
+                        
+                    }
+                    //exrtractor.SetActive(false);
+                }
+
+            }
+            if (ThirdQuest == true)
+            {
+                if (Input.GetButtonDown("Action"))
+                {
+                    if (Hit.transform.tag == "tools")
+                    {
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                        toolCount--;
+                        if (toolCount == 0)
+                        {
+                            QuestD.SetBool("QD", true);
+                            NPC_3.gameObject.tag = "Untagged";
+                            questDone3.gameObject.SetActive(false);
+                            Q3 = true;
+                            //print("quest three done");
+                            StartCoroutine(qDone());
+                            questDone++;
                         }
                     }
                 }
-                
             }
-            
+
+            if (ForthQuest == true)
+            {
+                if (Hit.transform.gameObject == gems)
+                {
+                    //print("looking at gems");
+                    if (Input.GetButtonDown("Action") && Q4 != true)
+                    {
+
+                        pixace.SetActive(true);
+                        pickaxe.SetBool("Mine", true);
+                        NPC_4.gameObject.tag = "Untagged";
+
+                        //corutine to make the the raycast hit obj
+                        StartCoroutine(Sucking());
+
+                    }
+                    if (Q4 == true)
+                    {
+                        Hit.transform.GetComponent<InteractableObject>().Interact();
+                    }
+                }
+                
+
+            }
         }
     }
-    
+    IEnumerator qDone()
+    {
+        yield return new WaitForSeconds(0.5f    );
+        //print("waited");
+        QuestD.SetBool("QD", false);
+    }
+    IEnumerator Sucking()
+    {
+        yield return new WaitForSeconds(3);
+        //print("quest four done");
+        pickaxe.SetBool("Mine", false);
+        Q4 = true;
+        QuestD.SetBool("QD", true);
+        
+        questDone++;
+        questDone4.gameObject.SetActive(false);
+        pixace.SetActive(false);
+    }
+}

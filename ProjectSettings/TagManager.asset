@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NPC 1
+  - NPC 2
+  - NPC 3
+  - NPC 4
+  - tools
+  - Int NPC
+  - winCap
   layers:
   - Default
   - TransparentFX
