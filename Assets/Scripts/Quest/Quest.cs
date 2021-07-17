@@ -45,7 +45,7 @@ public class Quest : MonoBehaviour
 
     }
     void OnMouseOver()
-    {
+    {//this check the sampleplayer float for the distance between the object and the player so that interation can take place
         if (gameObject.tag=="winCap"&& Win==4)
         {
             WinF.gameObject.SetActive(true);

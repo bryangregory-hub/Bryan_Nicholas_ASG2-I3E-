@@ -85,6 +85,7 @@ public class SamplePlayer : MonoBehaviour
         questDone = 0;
         nextState = "Idle";
         Cursor.lockState = CursorLockMode.Locked;
+        //identifies if the which quest is avalible complete
         Q1 = false;
         Q2 = false;
         Q3 = false;
@@ -98,11 +99,13 @@ public class SamplePlayer : MonoBehaviour
         Qn2S.value = Count;
         
         suckTime = Sucking();
+        //refering back to Quest scripts
         FirstQuest = Quest.i;
         SecondQuest = Quest.t;
         ThirdQuest = Quest.y;
         ForthQuest = Quest.u;
         toolNum.text = "Tools to find " + toolCount;
+        //if all 4 quest is claim ship is ready to board
         if (Input.GetButton("Win")|| questDone==4)
         {
             print("all quest completed");
@@ -197,6 +200,7 @@ public class SamplePlayer : MonoBehaviour
     }
     void raycastNpc()
     {
+        // this raycast identifist the distance from the player and an object
         RaycastHit Hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out Hit))
         {
@@ -217,7 +221,7 @@ public class SamplePlayer : MonoBehaviour
         {
 
 
-
+            //when player accepts the quest, press e to interact with item
             if (FirstQuest == true)
             {
                 if (Input.GetButtonDown("Action") && Q1 != true)
@@ -225,12 +229,15 @@ public class SamplePlayer : MonoBehaviour
                     if (Hit.transform.gameObject == medic)
                     {
                         //print("quest one done");
+                        //play animation
                         QuestD.SetBool("QD", true);
                         Hit.transform.GetComponent<InteractableObject>().Interact();
+                        //disables the interation with NPC when quest is done by switching quest.
                         NPC_1.gameObject.tag = "Untagged";
                         questDone1.gameObject.SetActive(false);
                         Q1 = true;
                         questDone++;
+                        
                         StartCoroutine(qDone());
 
                     }
@@ -315,12 +322,14 @@ public class SamplePlayer : MonoBehaviour
             }
         }
     }
+    //this coroutine help give a pause so that the animation can fully play out 
     IEnumerator qDone()
     {
         yield return new WaitForSeconds(0.5f    );
         //print("waited");
         QuestD.SetBool("QD", false);
     }
+    //this is used for the 2 quest for user to interact with stone
     IEnumerator Sucking()
     {
         yield return new WaitForSeconds(3);

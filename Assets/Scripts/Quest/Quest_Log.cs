@@ -29,7 +29,7 @@ public class Quest_Log : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {//tab will toggle the menu open
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             Mission_Log.gameObject.SetActive(true);
@@ -40,7 +40,7 @@ public class Quest_Log : MonoBehaviour
             Mission_Log.gameObject.SetActive(false);
         }
     }
-
+    //this is to show if the quest is avalible where to find it and/or if its completed 
     public void QuestClaim()
     {
         LogQ1 = Quest.i;

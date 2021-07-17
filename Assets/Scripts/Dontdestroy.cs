@@ -11,7 +11,7 @@ public class Dontdestroy : MonoBehaviour
         
     }
     private void Awake()
-    {
+    {//create a object that does not destroys on load
         DontDestroyOnLoad(this.gameObject);
     }
     // Update is called once per frame
