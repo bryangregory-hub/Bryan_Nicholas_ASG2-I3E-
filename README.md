@@ -6,7 +6,10 @@ press "Tab" tp open up quest logs to complete and completed.
 When players walk close to opjects and npc an indicator would appear to identify actions needed.
 
 Interactions
-when
+3 types of NPC the quest highlighted in blue,
+the interactive NPC highlighted in red,
+the Goal NPC is hilight in green.
+each has their own purpose
 
 STORY
 You are a ship captain's engineer and both of you are going on a trip to Mars for resource collection. However, on your way the ship suffered a fatal malfunction and crashed into the moon. You were knocked unconscious and were saved by your captain as thankfully there is an abandoned moon base. The captain is suffering mortal wounds and is physcially incapacitated.
@@ -16,6 +19,9 @@ PLATFORMS
 Windows, Mac, and Linux
 
 BUGS/LIMITATIONS
+The text and UI starts blinking cause of a corutine.
+No transition screen was added due to time constraints.
+
 
 REFERENCES AND LINKS
 MineShaft Assets - https://assetstore.unity.com/packages/3d/characters/purple-crystal-mine-113576
