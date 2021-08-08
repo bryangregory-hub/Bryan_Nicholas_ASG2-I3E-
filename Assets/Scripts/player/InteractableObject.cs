@@ -30,9 +30,12 @@ public class InteractableObject : MonoBehaviour
     // the distance to spawn the object;
     private Transform theDest;
     public whichType  currentState;
-
+    public GameObject Player;
+    [Header("Med kit")]
+    public float heal_p;
+    [Header("Door animations")]
     public GameObject door;
-     
+    
     void Start()
     {
         theDest = GameObject.Find("Destination").transform;
@@ -65,6 +68,7 @@ public class InteractableObject : MonoBehaviour
         else if (currentState == whichType.oneTime)
         {
             //print("this is one time");
+            Player.GetComponent<SamplePlayer>().heal();
             gameObject.SetActive(false);
         }
         else if (currentState == whichType.btnDoor)
@@ -92,6 +96,9 @@ public class InteractableObject : MonoBehaviour
     public void _btnDoor()
     {
         //smt happens
+        print("hoi");
+        Animator d=door.gameObject.GetComponent<Animator>();
+        d.SetBool("Door_open", true);
     }
     public void _btnDactvSecurity()
     {

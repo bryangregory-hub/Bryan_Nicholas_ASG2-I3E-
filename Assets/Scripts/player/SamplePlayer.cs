@@ -52,8 +52,10 @@ public class SamplePlayer : MonoBehaviour
     [Header("Chara stats")]
     public float playerHealth;
     public Text pHealth;
-    private float _ph;
-
+    public GameObject health_pack;
+    
+    public  float plus_health;
+    public float enemy_hit;
     public Image lo_indi;
     // Start is called before the first frame update
     void Start()
@@ -84,14 +86,14 @@ public class SamplePlayer : MonoBehaviour
         InteractionRaycast();
         Ui();
 
-        _ph = enemy.GetComponent<PatrolAI>()._pHealth;
-        if (_ph <= 50)
+        //_ph = enemy.GetComponent<PatrolAI>()._pHealth;
+        if (playerHealth <= 50)
         {
             
             lo_indi.gameObject.SetActive(true);
 
         }
-        else if (_ph>=51)
+        else if (playerHealth >= 51)
         {
             lo_indi.gameObject.SetActive(false);
         }
@@ -104,6 +106,7 @@ public class SamplePlayer : MonoBehaviour
                     playerCamera.transform.position + playerCamera.transform.forward * interactionDistance);
 
         int layermask = 1 << LayerMask.NameToLayer("Interactable");
+        int layermask2 = 1 << LayerMask.NameToLayer("Notes");
 
         RaycastHit hitinfo;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,
@@ -122,6 +125,12 @@ public class SamplePlayer : MonoBehaviour
 
 
         }
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,
+            out hitinfo, interactionDistance, layermask2))
+        {
+            print("goooo");
+        }
+
 
     }
 
@@ -223,11 +232,20 @@ public class SamplePlayer : MonoBehaviour
             Cursor.visible = false;
         }
     }
-
+    public void got_hit()
+    {
+        print("geting hit");
+        playerHealth -= enemy_hit;
+    }
     void Ui()
     {
         
-        pHealth.text = "Health: " + _ph;
+        pHealth.text = "Health: " + playerHealth;
+    }
+    public void heal()
+    {
+        print("hi");
+        playerHealth += plus_health;
     }
 
 }

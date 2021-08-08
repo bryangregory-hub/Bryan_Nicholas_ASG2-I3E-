@@ -242,7 +242,7 @@ public class PatrolAI : MonoBehaviour
             
         yield return new WaitForSeconds(1.7f);
             
-        _pHealth -= enemyDmg;
+        player.got_hit();
         yield return new WaitForSeconds(0.9f);
         isColide = true;
     }
@@ -251,7 +251,7 @@ public class PatrolAI : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            enemyDmg = 25;
+            
             GetComponent<NavMeshAgent>().speed = 0;
             animator.SetBool("IsRunning", false);
             animator.SetBool("IsScream", false);
@@ -260,6 +260,7 @@ public class PatrolAI : MonoBehaviour
             
             if (isColide==true)
             {
+                player.enemy_hit = 25;
                 isColide = false;
                 StartCoroutine("_Atk");
                 
@@ -280,9 +281,10 @@ public class PatrolAI : MonoBehaviour
         animator.SetBool("Idle", false);
         if (other.gameObject.tag == "Player")
         {
-            print("hii");
+            
             isColide = false;
-            enemyDmg = 0;
+            
+            player.enemy_hit = 0;
 
 
         }

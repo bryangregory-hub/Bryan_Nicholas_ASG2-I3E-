@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    [HideInInspector]
+   
     public Transform target;
     public float range = 15f;
     public float fireRate = 1f;
     private float fireCountDown = 0f;
     
     public string enemyTag = "Enemy";
-    public string playerTag = "Player";
+    
     public Transform partToRotate;
     public float turnSpeed = 10f;
-    public string[] test;
+  
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public GameObject _Player;
+   
     private bool isNotWall;
    
     // Start is called before the first frame update
@@ -36,9 +36,7 @@ public class Turret : MonoBehaviour
     void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        GameObject[] player = GameObject.FindGameObjectsWithTag(playerTag);
-
-        test = new string[enemies + player];
+        
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
         foreach (GameObject enemy in enemies)
@@ -65,13 +63,13 @@ public class Turret : MonoBehaviour
     /// </summary>
     void Update()
     {
-        inNotBlock();
+        
         if (target==null)
         {
             return;
         }
 
-        print(test);
+       
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation,lookRotation,Time.deltaTime*turnSpeed).eulerAngles;
@@ -79,16 +77,23 @@ public class Turret : MonoBehaviour
 
         if (fireCountDown <=0&& isNotWall == true)
         {
+            
             Shoot();
             fireCountDown = 1f / fireRate;
         }
         fireCountDown -= Time.deltaTime;
+        inNotBlock();
     }
     
     void Shoot()
     {
         GameObject bulletMove=(GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        bulletMove.transform.rotation = bulletSpawn.transform.rotation;
+        //bulletMove.transform.rotation = bulletSpawn.transform.rotation;
+        Bullet bullet = bulletMove.GetComponent<Bullet>();
+
+        if (bullet != null)
+            bullet.Seek(target);
+
     }
 
     void inNotBlock()
