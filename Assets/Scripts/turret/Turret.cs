@@ -38,7 +38,7 @@ public class Turret : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         GameObject[] player = GameObject.FindGameObjectsWithTag(playerTag);
 
-         test = new string[enemies.Length + player.Length];
+        test = new string[enemies + player];
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
         foreach (GameObject enemy in enemies)
